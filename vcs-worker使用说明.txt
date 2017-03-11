@@ -1,0 +1,17 @@
+
+使用者需要实现的抽象类
+1: XxWorkerService继承WorkerService，实现虚函数outcome* run(task* )
+
+2: XxWorkerCodec继承WorkerCodec，实现虚函数buffer* encode(outcome*)，task* decode(buffer*)
+	2.1: XxWorkerTask继承WorkerTask
+	2.2: XxWorkerOutcome继承WorkerOutcome
+	
+3: XxWorkerRouter继承WorkerRouter, 实现虚函数unsigned int createKey(task*)
+
+4：XxWorkerConfig继承WorkerConfig
+	4.1: 实现createService, 返回XxWorkerService
+	4.2: 实现createCodec, 返回XxWorkerCodec
+	4.3: 实现createRouter, 返回XxWorkerRouter
+	4.4: 实现getThreadNum, 返回worker线程数
+
+
