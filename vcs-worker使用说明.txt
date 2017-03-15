@@ -1,0 +1,26 @@
+
+使用者需要实现的抽象类
+1: XxWorkerService继承WorkerService，实现虚函数outcome* run(task* )
+
+2: XxWorkerCodec继承WorkerCodec，实现虚函数buffer* encode(outcome*)，task* decode(buffer*)
+	2.1: XxWorkerTask继承WorkerTask
+	2.2: XxWorkerOutcome继承WorkerOutcome
+	
+3: XxWorkerRouter继承WorkerRouter, 实现虚函数unsigned int createKey(task*)
+
+4：XxWorkerConfig继承WorkerConfig
+	4.1: 实现createService, 返回XxWorkerService
+	4.2: 实现createCodec, 返回XxWorkerCodec
+	4.3: 实现createRouter, 返回XxWorkerRouter
+	4.4: 实现getThreadNum, 返回worker线程数
+	4.5: 实现clientMaxIdleTime, 返回客户端的最大空闲秒数
+
+worker组件处理流程
+1：worker组件将收到的client发送的数据交给自定义的WorkerCodec::decode()函数，返回自定义的WorkerTask
+2：worker组件根据自定义的WorkerRouter::createKey()返回值与线程数取模的方式进行分发WorkerTask
+3：worker组件将WorkerTask分发给自定义的WorkerService::run()
+4：worker组件将WorkerService::run()返回的WorkerOutcom交给自定义的WorkerCodec::encode()
+5：worker组件就WorkerCodec::encode()返回的数据下发给client
+
+
+
