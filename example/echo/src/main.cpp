@@ -1,5 +1,6 @@
 #include "vcs/event_base/event_base.h"
 #include "vcs/util/server_config.h"
+#include "vcs/doctor/server_doctor.h"
 #include "client_listener.h"
 #include <string>
 
@@ -14,6 +15,10 @@ int main(int argc, char* argv[]) {
 
     ServerConfig* cfg   =  Singleton<ServerConfig>::instance();
     cfg->load(argv[1]);
+
+    string doctorHost   = cfg->getStrValue("doctor.host");
+    int doctorPort      = cfg->getIntValue("doctor.port");
+    ServerDoctor::instance()->init(doctorHost.c_str(), doctorPort);
 
     ClientListener* clientListener = Singleton<ClientListener>::instance();
     string clientHost   = cfg->getStrValue("network.client.host");
