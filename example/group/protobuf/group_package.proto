@@ -1,0 +1,100 @@
+package group;
+
+message RequestCreateGroup {
+	required string user_id		= 1;
+	required string group_id	= 2;
+}
+
+message ResponseCreateGroup {
+	required int32 result	= 1;
+}
+
+message RequestDismissGroup {
+	required string user_id		= 1;
+	required string group_id	= 2;
+}
+
+message ResponseDismissGroup {
+	required int32 result	= 1;
+}
+
+message RequestJoinGroup {
+	required string user_id		= 1;
+	required string group_id	= 2;
+}
+
+message ResponseJoinGroup {
+	required int32 result	= 1;
+}
+
+message RequestQuitGroup {
+	required string user_id		= 1;
+	required string group_id	= 2;
+}
+
+message ResponseQuitGroup {
+	required int32 result	= 1;
+}
+
+message RequestMsgGroup {
+	required string sender_id	= 1;
+	required string group_id	= 2;
+	required string mid			= 3;
+	required int32 type			= 4;
+	required string content		= 5;
+	required uint64 time		= 6;
+}
+
+message ResponseMsgGroup {
+	required int32 result   			= 1;
+	optional RequestMsgGroup request	= 2;
+	repeated string recver				= 3;
+}
+
+message RequestBroadcastGroup {
+	required string sender_id	= 1;
+	required string group_id	= 2;
+	required string mid			= 3;
+	required int32 type			= 4;
+	required string content		= 5;
+	required uint64 time		= 6;
+}
+
+message ResponseBroadcastGroup {
+	required int32 result   				= 1;
+	optional RequestBroadcastGroup request	= 2;
+	repeated string recver					= 3;
+}
+
+message ResponseRegisterChat {
+	required int32 result		= 1;
+}
+
+message RequestGetGroupInfo {
+	required string group_id	= 1;
+}
+
+message GroupMember {
+	required string id			= 1;
+	required uint64 active_time = 2;
+	required uint64 join_time	= 3;
+}
+
+message ResponseGetGroupInfo {
+	required int32 result		= 1;
+	optional string group_id	= 2;
+	optional string creator		= 3;
+	optional int32 status		= 4;
+	optional uint64 last_active_time	= 5;
+	repeated GroupMember member			= 6;
+}
+
+message RequestSetGroupStatus {
+	required string group_id	= 1;
+	required int32 status		= 2;
+}
+
+message ResponseSetGroupStatus {
+	required int32 result		= 1;
+}
+

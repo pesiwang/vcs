@@ -1,0 +1,21 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+PROJECT(group)
+
+SET(CMAKE_CXX_FLAGS "-std=c++0x -g -Wall -DDEBUG")
+
+INCLUDE_DIRECTORIES(include include/vcs)
+LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib)
+
+AUX_SOURCE_DIRECTORY(src SRC_LIST)
+AUX_SOURCE_DIRECTORY(src/model SRC_LIST)
+AUX_SOURCE_DIRECTORY(src/protobuf SRC_LIST)
+
+ADD_EXECUTABLE(group_server.exe ${SRC_LIST})
+TARGET_LINK_LIBRARIES(group_server.exe vcs pthread protobuf jsoncpp hiredis)
+
+AUX_SOURCE_DIRECTORY(client CLIENT_SRC_LIST)
+AUX_SOURCE_DIRECTORY(src/protobuf CLIENT_SRC_LIST)
+ADD_EXECUTABLE(group_client.exe ${CLIENT_SRC_LIST})
+TARGET_LINK_LIBRARIES(group_client.exe vcs protobuf)
+

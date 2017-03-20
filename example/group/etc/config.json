@@ -1,0 +1,28 @@
+{
+	"server":{
+		"host":"0.0.0.0",
+		"port":6666
+	},
+	
+	"storage":{
+		"host":"127.0.0.1",
+		"port":6379
+	},
+
+	"worker":{
+		"thread_num":3,
+		"client_max_idle_time":600,
+		"task_queue_size_threshold":3,
+		"outcome_queue_size_threshold":3
+	},
+
+	"doctor":{
+		"host":"0.0.0.0",
+		"port":6667
+	},
+
+	"logic":{
+		"max_group_member_num":20,
+		"update_active_time_lag":3600
+	}
+}
